@@ -41,12 +41,13 @@ def checkAcceptence(string: str) -> bool:
     return isAccepted
 
 
-string: str = input("Enter a string >")
-print("Given string")
+while True:
+    string: str = input("Enter a string >")
+    print("Given string")
 
-isAccepted: bool = checkAcceptence(string)
+    isAccepted: bool = checkAcceptence(string)
 
-if isAccepted:
-    print("String Accepted!")
-else:
-    print("String not Accepted!")
+    if isAccepted:
+        print("String Accepted!")
+    else:
+        print("String not Accepted!")
