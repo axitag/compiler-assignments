@@ -24,8 +24,10 @@ def checkAcceptence(string: str) -> bool:
     # for (ab*c)
     elif string[0] == "a" and string[len(string) - 1] == "c":
         for idx, char in enumerate(string):
+            # checking in the middle
             if idx > 0 and idx < len(string) - 1 and char != "b":
                 isAccepted = False
+                break
 
     # for def
     elif string == "def":
@@ -35,9 +37,14 @@ def checkAcceptence(string: str) -> bool:
     elif string[0] == "a" and string[len(string) - 1] == "d":
         for idx, char in enumerate(string):
             if idx > 0 and idx < len(string) - 1:
-                if char == "c" and string[idx + 1] == "b":
-                    isAccepted = False
+                if char == "b" or char == "c":
+                    if char == "c" and string[idx + 1] == "b":
+                        isAccepted = False
+                        break
 
+                else:
+                    isAccepted = False
+                    break
     else:
         isAccepted = False
 
@@ -45,7 +52,7 @@ def checkAcceptence(string: str) -> bool:
 
 
 while True:
-    string: str = input("Enter a string >")
+    string: str = input("Enter a string > ")
     print("Given string: ", string)
 
     isAccepted: bool = checkAcceptence(string)

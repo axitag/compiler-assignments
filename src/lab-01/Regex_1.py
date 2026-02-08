@@ -20,14 +20,32 @@ def checkAcceptence(string: str) -> bool:
 
     isAccepted: bool = True
 
-    # if the string is of length 0 : epsilon
+    # If the string is of lenght 0 i.e epsilon
     if len(string) == 0:
-        return isAccepted
-
-    # only when string contains 0 after 1 will it get rejected
-    for idx, char in enumerate(string):
-        if char == "1" and idx != len(string) - 1 and string[idx + 1] == "0":
-            isAccepted = False
+        isAccepted = True
+    # only if the string contains 0 after 1 will it get rejected
+    elif string[0] == "0" and string[-1] == "1":
+        for idx, char in enumerate(string):
+            if char == "0" or char == "1":
+                if idx < len(string) - 1:
+                    if char == "1" and string[idx + 1] == "0":
+                        isAccepted = False
+                        break
+            else:
+                isAccepted = False
+                break
+    elif string[0] == "0":
+        for idx, char in enumerate(string):
+            if char != "0":
+                isAccepted = False
+                break
+    elif string[0] == "1":
+        for idx, char in enumerate(string):
+            if char != "1":
+                isAccepted = False
+                break
+    else:
+        isAccepted = False
     return isAccepted
 
 

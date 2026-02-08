@@ -19,24 +19,44 @@ def checkAccepted(string: str) -> bool:
 
     # for empty strings
     if len(string) == 0:
-        isAccepted = False
+        isAccepted = True
+
+        # for ab*c*d
+    elif (
+        string[0] == "a"
+        and string[len(string) - 1] == "d"
+        and string.count("a") == 1
+        and string.count("d") == 1
+    ):
+        for idx, char in enumerate(string):
+            if idx > 0 and idx < len(string) - 1:
+                if char == "b" or char == "c":
+                    if char == "c" and string[idx + 1] == "b":
+                        isAccepted = False
+                        break
+
+                else:
+                    isAccepted = False
+                    break
 
     # for ((a+b)*(c+d)*)
     elif string[0] == "a" or string[0] == "b" or string[0] == "c" or string[0] == "d":
         for idx, char in enumerate(string):
-            if idx < len(string) - 1:
-                if char == "c" and (string[idx + 1] == "a" or string[idx + 1] == "b"):
-                    isAccepted = False
-
-                if char == "d" and (string[idx + 1] == "a" or string[idx + 1] == "b"):
-                    isAccepted = False
-
-    # for ab*c*d
-    elif string[0] == "a" and string[len(string) - 1] == "d":
-        for idx, char in enumerate(string):
-            if idx < len(string) - 1:
-                if char == "c" and string[idx + 1] == "b":
-                    isAccepted = False
+            if char == "a" or char == "b" or char == "c" or char == "d":
+                if idx < len(string) - 1:
+                    if char == "c" and (
+                        string[idx + 1] == "a" or string[idx + 1] == "b"
+                    ):
+                        isAccepted = False
+                        break
+                    if char == "d" and (
+                        string[idx + 1] == "a" or string[idx + 1] == "b"
+                    ):
+                        isAccepted = False
+                        break
+            else:
+                isAccepted = False
+                break
 
     else:
         isAccepted = False
@@ -45,7 +65,7 @@ def checkAccepted(string: str) -> bool:
 
 
 while True:
-    string: str = input("Enter a string >")
+    string: str = input("Enter a string > ")
     print("Given String", string)
 
     isAccepted: bool = checkAccepted(string)
