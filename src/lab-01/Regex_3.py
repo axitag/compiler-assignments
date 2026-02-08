@@ -12,7 +12,7 @@
 # 2. ab*c*d or
 
 
-# steps
+# Expression -> ((a+b)*(c+d)*) + ab*c*d
 def checkAccepted(string: str) -> bool:
 
     isAccepted: bool = True
@@ -21,19 +21,25 @@ def checkAccepted(string: str) -> bool:
     if len(string) == 0:
         isAccepted = False
 
-    for idx, char in enumerate(string):
-        # ab*c*d
-        if idx > 0 and idx < len(string) - 1:
-            if char == "c" and string[idx + 1] == "b":
-                isAccepted = False
+    # for ((a+b)*(c+d)*)
+    elif string[0] == "a" or string[0] == "b" or string[0] == "c" or string[0] == "d":
+        for idx, char in enumerate(string):
+            if idx < len(string) - 1:
+                if char == "c" and (string[idx + 1] == "a" or string[idx + 1] == "b"):
+                    isAccepted = False
 
-            # ((a+b)*(c+d*))
-            if char == "c":
-                if string[idx + 1] == "a" or string[idx + 1] == "b":
+                if char == "d" and (string[idx + 1] == "a" or string[idx + 1] == "b"):
                     isAccepted = False
-            if char == "d":
-                if string[idx + 1] == "a" or string[idx + 1] == "b":
+
+    # for ab*c*d
+    elif string[0] == "a" and string[len(string) - 1] == "d":
+        for idx, char in enumerate(string):
+            if idx < len(string) - 1:
+                if char == "c" and string[idx + 1] == "b":
                     isAccepted = False
+
+    else:
+        isAccepted = False
 
     return isAccepted
 

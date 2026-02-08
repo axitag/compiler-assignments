@@ -15,29 +15,19 @@
 # Steps
 
 
+# Expression -> (0* + 1*) + 0*1*
 def checkAcceptence(string: str) -> bool:
 
     isAccepted: bool = True
 
-    # #if the string is of length 0 : epsilon
+    # if the string is of length 0 : epsilon
     if len(string) == 0:
         return isAccepted
 
-    first: str = string[0]
-
-    # ex - 0000, 1111, 00011,
-    match first:
-        case "0":
-            for idx, char in enumerate(string):
-                # 10
-                if char == "1" and idx != len(string) - 1 and string[idx + 1] == "0":
-                    isAccepted = False
-
-        case "1":
-            for id, char in enumerate(string):
-                # 01
-                if char == "0" and idx != len(string) - 1 and string[idx + 1] == "1":
-                    isAccepted = False
+    # only when string contains 0 after 1 will it get rejected
+    for idx, char in enumerate(string):
+        if char == "1" and idx != len(string) - 1 and string[idx + 1] == "0":
+            isAccepted = False
     return isAccepted
 
 

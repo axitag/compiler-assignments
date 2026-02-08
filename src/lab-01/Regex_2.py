@@ -11,9 +11,8 @@
 # 2. (def) or
 # 3. (ab*c*d) or
 
-# Steps
 
-
+# Expression -> (ab*c) + (def) + ab*c*d
 def checkAcceptence(string: str) -> bool:
 
     isAccepted: bool = True
@@ -23,21 +22,24 @@ def checkAcceptence(string: str) -> bool:
         isAccepted = False
 
     # for (ab*c)
-    if string[0] == "a" and string[len(string) - 1] == "c":
+    elif string[0] == "a" and string[len(string) - 1] == "c":
         for idx, char in enumerate(string):
             if idx > 0 and idx < len(string) - 1 and char != "b":
                 isAccepted = False
 
     # for def
-    if string == "def":
+    elif string == "def":
         return isAccepted
 
     # for (ab*c*d)
-    if string[0] == "a" and string[len(string) - 1] == "d":
+    elif string[0] == "a" and string[len(string) - 1] == "d":
         for idx, char in enumerate(string):
             if idx > 0 and idx < len(string) - 1:
                 if char == "c" and string[idx + 1] == "b":
                     isAccepted = False
+
+    else:
+        isAccepted = False
 
     return isAccepted
 
